@@ -16,6 +16,7 @@ func NewRelation(relation *repository.Relation) (int64, error) {
 		user, e := userDao.QueryById(followId)
 		if e != nil {
 			util.Logger.Error(e.Error())
+			return
 		}
 		user.FollowCount++
 		e = userDao.Update(user)
@@ -28,6 +29,7 @@ func NewRelation(relation *repository.Relation) (int64, error) {
 		user, e := userDao.QueryById(followerId)
 		if e != nil {
 			util.Logger.Error(e.Error())
+			return
 		}
 		user.FollowerCount++
 		e = userDao.Update(user)

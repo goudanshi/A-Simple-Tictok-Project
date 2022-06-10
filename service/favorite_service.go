@@ -8,7 +8,6 @@ import (
 )
 
 func NewFavorite(userId int64, videoId int64) (int64, error) {
-	//todo: 给count++
 	id, err := repository.GetFavoriteDaoInstance().Add(&repository.Favorite{
 		UserId:     userId,
 		VideoId:    videoId,
@@ -17,6 +16,17 @@ func NewFavorite(userId int64, videoId int64) (int64, error) {
 	if err != nil {
 		return -1, err
 	}
+
+	go func(videoId int64) {
+		videoDao := repository.GetVideoDaoInstance()
+		video, e := videoDao.QueryById(videoId)
+		if e != nil {
+			util.Logger.Error(e.Error())
+			return
+		}
+		video.FavoriteCount++
+		videoDao.Update(video)
+	}(videoId)
 	return id, err
 }
 
@@ -30,6 +40,7 @@ func CancelFavorite(userId int64, videoId int64) error {
 		video, er := videoDao.QueryById(videoId)
 		if er != nil {
 			util.Logger.Error(er.Error())
+			return
 		}
 		video.FavoriteCount--
 		er = videoDao.Update(video)
