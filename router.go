@@ -15,7 +15,7 @@ func initRouter(r *gin.Engine) {
 		{
 			userGroup.POST("/register/", controller.Register)
 			userGroup.POST("/login/", controller.Login)
-			userGroup.GET("/", controller.UserInfo)
+			userGroup.GET("/", controller.Auth, controller.UserInfo)
 		}
 
 		publishGroup := douyinGroup.Group("/publish", controller.Auth)

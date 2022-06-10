@@ -5,7 +5,7 @@ import (
 	"douyin/service"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"runtime"
+	"strconv"
 )
 
 type registerResponse struct {
@@ -57,19 +57,9 @@ func Register(c *gin.Context) {
 }
 
 func UserInfo(c *gin.Context) {
-	var paramMap map[string]interface{}
-	c.ShouldBindJSON(&paramMap)
-	defer func() {
-		switch p := recover(); p.(type) {
-		case nil:
-		case *runtime.TypeAssertionError:
-			buildError(c, "the type of user id is wrong")
-		default:
-			panic(p)
-		}
-	}()
-	idRaw := paramMap["user_id"].(float64)
-	id := int64(idRaw)
+	tmp := service.GetUserId(c)
+	idRaw := c.Query("user_id")
+	id, _ := strconv.ParseInt(idRaw, 10, 64)
 	user, err := service.GetUserInfo(id)
 	if err != nil {
 		c.JSON(http.StatusOK, BaseResponse{
@@ -78,8 +68,7 @@ func UserInfo(c *gin.Context) {
 		})
 		return
 	}
-
-	//todo: is follow
+	isFollow := service.IsFollow(id, tmp)
 
 	c.JSON(http.StatusOK, userInfoResponse{
 		BaseResponse: BaseResponse{
@@ -91,6 +80,7 @@ func UserInfo(c *gin.Context) {
 			Username:      user.Username,
 			FollowerCount: user.FollowerCount,
 			FollowCount:   user.FollowCount,
+			IsFollow:      isFollow,
 		},
 	})
 }

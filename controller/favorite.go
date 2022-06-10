@@ -40,6 +40,7 @@ func FavoriteAction(c *gin.Context) {
 
 func FavoriteList(c *gin.Context) {
 	userId := service.GetUserId(c)
+
 	data, err := service.QueryFavoriteVideo(userId)
 	if err != nil {
 		buildError(c, err.Error())

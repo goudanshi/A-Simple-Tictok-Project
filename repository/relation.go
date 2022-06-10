@@ -60,6 +60,15 @@ func (*RelationDao) DeleteByFollowAndFollower(followId int64, followerId int64) 
 	return db.Exec("DELETE FROM relation WHERE follow_id = " + string(followId) + " follower_id = " + string(followerId)).Error
 }
 
+func (*RelationDao) QueryByFollowIdAndFollowerId(followId int64, followerId int64) (*Relation, error) {
+	relation := Relation{Id: -1}
+	err := db.Table("relation").Where("follow_id = ? and follower_id = ?", followId, followerId).Find(&relation).Error
+	if err != nil {
+		return nil, err
+	}
+	return &relation, nil
+}
+
 func GetRelationDaoInstance() *RelationDao {
 	return &relationDao
 }

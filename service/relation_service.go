@@ -72,6 +72,15 @@ func DeleteRelation(followId int64, followerId int64) error {
 	return nil
 }
 
+func IsFollow(followId int64, followerId int64) bool {
+	relation, err := repository.GetRelationDaoInstance().QueryByFollowIdAndFollowerId(followId, followerId)
+	if err != nil {
+		util.Logger.Error(err.Error())
+		return false
+	}
+	return relation.Id != -1
+}
+
 func GetFollowList(userId int64) ([]User, error) {
 	data, err := repository.GetRelationDaoInstance().GetFollowList(userId)
 	if err != nil {
