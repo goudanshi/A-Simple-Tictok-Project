@@ -74,8 +74,9 @@ func Register(user *repository.User) (int64, string, error) {
 func cryptoMd5(s string) string {
 	h := md5.New()
 	h.Write([]byte(s))
-	result := h.Sum(nil)
-	return *(*string)(unsafe.Pointer(&result))
+	//result := h.Sum(nil)
+	//return *(*string)(unsafe.Pointer(&result))
+	return hex.EncodeToString(h.Sum(nil))
 }
 
 func AuthMiddlewareInit() error {
