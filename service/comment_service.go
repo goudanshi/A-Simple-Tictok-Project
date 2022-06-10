@@ -32,14 +32,12 @@ func GetCommentListByVideo(videoId int64, userId int64) ([]Comment, error) {
 	var dataErr, followErr error
 	var waitGroup sync.WaitGroup
 	waitGroup.Add(2)
-	go func() {
-		data, dataErr = repository.GetCommentDaoInstance().QueryWithUser(videoId)
-		waitGroup.Done()
-	}()
-	go func() {
-		followMap, followErr = getFollowMap(userId)
-		waitGroup.Done()
-	}()
+
+	data, dataErr = repository.GetCommentDaoInstance().QueryWithUser(videoId)
+	waitGroup.Done()
+	followMap, followErr = getFollowMap(userId)
+	waitGroup.Done()
+
 	if dataErr != nil {
 		return nil, dataErr
 	}
