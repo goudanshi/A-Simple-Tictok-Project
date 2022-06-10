@@ -2,17 +2,72 @@ package service
 
 import (
 	"douyin/repository"
+	"douyin/util"
 	"sync"
 )
 
 func NewRelation(relation *repository.Relation) (int64, error) {
-	//todo: 给用户的count++
-	return repository.GetRelationDaoInstance().Add(relation)
+	id, err := repository.GetRelationDaoInstance().Add(relation)
+	if err != nil {
+		return -1, err
+	}
+	go func(followId int64) {
+		userDao := repository.GetUserDaoInstance()
+		user, e := userDao.QueryById(followId)
+		if e != nil {
+			util.Logger.Error(e.Error())
+		}
+		user.FollowCount++
+		e = userDao.Update(user)
+		if e != nil {
+			return
+		}
+	}(relation.FollowId)
+	go func(followerId int64) {
+		userDao := repository.GetUserDaoInstance()
+		user, e := userDao.QueryById(followerId)
+		if e != nil {
+			util.Logger.Error(e.Error())
+		}
+		user.FollowerCount++
+		e = userDao.Update(user)
+		if e != nil {
+			return
+		}
+	}(relation.FollowerId)
+	return id, nil
 }
 
 func DeleteRelation(followId int64, followerId int64) error {
-	//todo: 给count--
-	return repository.GetRelationDaoInstance().DeleteByFollowAndFollower(followId, followerId)
+	err := repository.GetRelationDaoInstance().DeleteByFollowAndFollower(followId, followerId)
+	if err != nil {
+		return err
+	}
+	go func(followId int64) {
+		userDao := repository.GetUserDaoInstance()
+		user, e := userDao.QueryById(followId)
+		if e != nil {
+			util.Logger.Error(e.Error())
+		}
+		user.FollowCount--
+		e = userDao.Update(user)
+		if e != nil {
+			return
+		}
+	}(followId)
+	go func(followerId int64) {
+		userDao := repository.GetUserDaoInstance()
+		user, e := userDao.QueryById(followerId)
+		if e != nil {
+			util.Logger.Error(e.Error())
+		}
+		user.FollowerCount--
+		e = userDao.Update(user)
+		if e != nil {
+			return
+		}
+	}(followerId)
+	return nil
 }
 
 func GetFollowList(userId int64) ([]User, error) {

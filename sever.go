@@ -35,8 +35,8 @@ func Init() error {
 	//if err := util.InitRedis(); err != nil {
 	//	return err
 	//}
-	//if err := util.InitOSS(); err != nil {
-	//	return err
-	//}
+	if err := util.InitOSS(); err != nil {
+		return err
+	}
 	return nil
 }
