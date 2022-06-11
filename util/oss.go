@@ -53,7 +53,7 @@ func StatObject(name string) (minio.ObjectInfo, error) {
 	return client.StatObject(ctx, MINIO_BUCKET, name, minio.StatObjectOptions{})
 }
 
-func GetVideo(name string) (io.Reader, int64, error) {
+func GetObjectWithSize(name string) (io.Reader, int64, error) {
 	info, err := StatObject(name)
 	if err != nil {
 		return nil, -1, err

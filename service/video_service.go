@@ -17,7 +17,11 @@ type VideoUser struct {
 }
 
 func GetVideoFeed(name string) (io.Reader, int64, error) {
-	return util.GetVideo(name)
+	return util.GetObjectWithSize(name)
+}
+
+func GetVideoCover(name string) (io.Reader, int64, error) {
+	return util.GetObjectWithSize(name)
 }
 
 func PublishVideo(data *multipart.FileHeader, title string, userId int64) (int64, error) {
@@ -85,9 +89,12 @@ func VideoList(userId int64) ([]VideoUser, error) {
 }
 
 func QueryUserVideo(userId int64) ([]VideoUser, error) {
-	data, err := repository.GetVideoDaoInstance().QueryUserVideo(userId)
+	data, err := repository.GetVideoDaoInstance().QueryUserVideo(30)
 	if err != nil {
 		return nil, err
+	}
+	if len(data) == 0 {
+		return []VideoUser{}, err
 	}
 	favoriteMap, err := getFavoriteMap(userId, data[len(data)-1].Video.CreateDate)
 	if err != nil {

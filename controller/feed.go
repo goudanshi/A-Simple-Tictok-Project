@@ -30,3 +30,13 @@ func GetFeed(c *gin.Context) {
 	}
 	c.DataFromReader(http.StatusOK, length, "video/mp4", reader, make(map[string]string))
 }
+
+func GetCover(c *gin.Context) {
+	path := c.Query("name")
+	reader, length, err := service.GetVideoFeed(path)
+	if err != nil {
+		buildError(c, err.Error())
+		return
+	}
+	c.DataFromReader(http.StatusOK, length, "image/png", reader, make(map[string]string))
+}

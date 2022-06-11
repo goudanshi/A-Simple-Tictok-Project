@@ -4,7 +4,14 @@ import (
 	"douyin/service"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"time"
 )
+
+type PublishListResponse struct {
+	BaseResponse
+	VideoList []service.VideoUser `json:"video_list"`
+	NextTime  time.Time           `json:"next_time"`
+}
 
 func Publish(c *gin.Context) {
 	c.JSON(http.StatusOK, service.GetUserId(c))
@@ -24,14 +31,20 @@ func PublishList(c *gin.Context) {
 	if err != nil {
 		buildError(c, err.Error())
 	}
-	c.JSON(http.StatusOK, struct {
-		BaseResponse
-		VideoList []service.VideoUser `json:"video_list"`
-	}{
+	if len(data) == 0 {
+		c.JSON(http.StatusOK, PublishListResponse{
+			BaseResponse: BaseResponse{
+				StatusCode: 0,
+				StatusMsg:  "success",
+			},
+		})
+	}
+	c.JSON(http.StatusOK, PublishListResponse{
 		BaseResponse: BaseResponse{
 			StatusCode: 0,
 			StatusMsg:  "success",
 		},
 		VideoList: data,
+		NextTime:  data[len(data)-1].CreateDate,
 	})
 }

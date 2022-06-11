@@ -6,14 +6,14 @@ import (
 )
 
 type Video struct {
-	Id            int64     `gorm:"column:id"`
-	PublisherId   int64     `gorm:"column:publisher_id"`
-	Title         string    `gorm:"column:title"`
-	VideoUrl      string    `gorm:"column:video_url"`
-	CoverUrl      string    `gorm:"column:cover_url"`
-	FavoriteCount int64     `gorm:"column:favorite_count"`
-	CommentCount  int64     `gorm:"column:comment_count"`
-	CreateDate    time.Time `gorm:"column:create_date"`
+	Id            int64     `json:"id" gorm:"column:id"`
+	PublisherId   int64     `json:"publisher_id" gorm:"column:publisher_id"`
+	Title         string    `json:"title" gorm:"column:title"`
+	VideoUrl      string    `json:"play_url" gorm:"column:video_url"`
+	CoverUrl      string    `json:"cover_url" gorm:"column:cover_url"`
+	FavoriteCount int64     `json:"favorite_count" gorm:"column:favorite_count"`
+	CommentCount  int64     `json:"comment_count" gorm:"column:comment_count"`
+	CreateDate    time.Time `json:"create_date" gorm:"column:create_date"`
 }
 
 type VideoUser struct {
@@ -61,9 +61,9 @@ func (*VideoDao) Query(limit int) ([]VideoUser, error) {
 	return videos, nil
 }
 
-func (*VideoDao) QueryUserVideo(userId int64) ([]VideoUser, error) {
+func (*VideoDao) QueryUserVideo(limit int64) ([]VideoUser, error) {
 	var videos []VideoUser
-	err := db.Raw("SELECT video.id, title, video_url, cover_url, favorite_count, comment_count, user.id, username, follow_count, follower_count FROM video INNER JOIN user ON publisher_id = user.id WHERE publisher_id = " + strconv.FormatInt(userId, 10) + " order by create_date desc").Scan(&videos).Error
+	err := db.Raw("SELECT video.id, title, video_url, cover_url, favorite_count, comment_count, user.id, username, follow_count, follower_count FROM video INNER JOIN user ON publisher_id = user.id  order by create_date desc limit " + strconv.FormatInt(limit, 10)).Scan(&videos).Error
 	if err != nil {
 		return nil, err
 	}
