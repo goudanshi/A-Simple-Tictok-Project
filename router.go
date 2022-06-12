@@ -10,7 +10,7 @@ func initRouter(r *gin.Engine) {
 	{
 		douyinGroup.GET("/feed/", controller.GetFeedList)
 		douyinGroup.GET("/feed/get", controller.GetFeed)
-		douyinGroup.GET("/feed/get/cover", controller.GetCover)
+		//douyinGroup.GET("/feed/get/cover", controller.GetCover)
 
 		userGroup := douyinGroup.Group("/user")
 		{

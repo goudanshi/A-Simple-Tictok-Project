@@ -6,6 +6,7 @@ import (
 	"douyin/util"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 )
 
 type relationActionRequest struct {
@@ -14,13 +15,14 @@ type relationActionRequest struct {
 }
 
 func RelationAction(c *gin.Context) {
-	var request relationActionRequest
-	c.ShouldBind(&request)
+
+	toUserId, _ := strconv.ParseInt(c.Query("to_user_id"), 10, 64)
+	actionType, _ := strconv.ParseInt(c.Query("action_type"), 10, 32)
 	userId := service.GetUserId(c)
-	switch request.ActionType {
+	switch actionType {
 	case util.NEW_RELATION:
 		_, err := service.NewRelation(&repository.Relation{
-			FollowId:   request.ToUserId,
+			FollowId:   toUserId,
 			FollowerId: userId,
 		})
 		if err != nil {
@@ -30,7 +32,7 @@ func RelationAction(c *gin.Context) {
 		buildSuccess(c)
 		return
 	case util.DELETE_RELATION:
-		err := service.DeleteRelation(request.ToUserId, userId)
+		err := service.DeleteRelation(toUserId, userId)
 		if err != nil {
 			buildError(c, err.Error())
 			return
@@ -44,7 +46,11 @@ func RelationAction(c *gin.Context) {
 }
 
 func FollowList(c *gin.Context) {
-	userId := service.GetUserId(c)
+	userId, err := strconv.ParseInt(c.Query("user_id"), 10, 64)
+	if err != nil {
+		buildError(c, err.Error())
+		return
+	}
 	data, err := service.GetFollowList(userId)
 	if err != nil {
 		buildError(c, err.Error())
@@ -63,7 +69,11 @@ func FollowList(c *gin.Context) {
 }
 
 func FollowerList(c *gin.Context) {
-	userId := service.GetUserId(c)
+	userId, err := strconv.ParseInt(c.Query("user_id"), 10, 64)
+	if err != nil {
+		buildError(c, err.Error())
+		return
+	}
 	data, err := service.GetFollowerList(userId)
 	if err != nil {
 		buildError(c, err.Error())

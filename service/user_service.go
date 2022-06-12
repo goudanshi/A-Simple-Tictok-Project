@@ -4,9 +4,9 @@ import (
 	"crypto/md5"
 	"douyin/repository"
 	"douyin/util"
+	"encoding/hex"
 	jwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"
-	"unsafe"
 )
 
 var authMiddleware *jwt.GinJWTMiddleware

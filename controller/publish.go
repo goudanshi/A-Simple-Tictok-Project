@@ -6,13 +6,13 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
 	"net/http"
-	"time"
+	"strconv"
 )
 
 type PublishListResponse struct {
 	BaseResponse
 	VideoList []service.VideoUser `json:"video_list"`
-	NextTime  time.Time           `json:"next_time"`
+	NextTime  int64               `json:"next_time"`
 }
 
 func Publish(c *gin.Context) {
@@ -39,8 +39,14 @@ func Publish(c *gin.Context) {
 }
 
 func PublishList(c *gin.Context) {
-	userId := service.GetUserId(c)
+	userId, err := strconv.ParseInt(c.Query("user_id"), 10, 64)
+	if err != nil {
+		buildError(c, err.Error())
+		return
+	}
 	data, err := service.QueryUserVideo(userId)
+	fmt.Println("publishlist")
+	fmt.Println(data)
 	if err != nil {
 		buildError(c, err.Error())
 	}
@@ -58,6 +64,6 @@ func PublishList(c *gin.Context) {
 			StatusMsg:  "success",
 		},
 		VideoList: data,
-		NextTime:  data[len(data)-1].CreateDate,
+		NextTime:  data[len(data)-1].CreateDate.UnixNano(),
 	})
 }

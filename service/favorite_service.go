@@ -3,6 +3,7 @@ package service
 import (
 	"douyin/repository"
 	"douyin/util"
+	"fmt"
 	"sync"
 	"time"
 )
@@ -98,7 +99,9 @@ func getFavoriteMap(userId int64, earlyTime time.Time) (map[int64]struct{}, erro
 	favoriteMap := make(map[int64]struct{})
 	for _, item := range data {
 		favoriteMap[item] = struct{}{}
+		fmt.Println(item)
 	}
+	fmt.Println(favoriteMap)
 
 	return favoriteMap, nil
 }

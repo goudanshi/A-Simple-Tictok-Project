@@ -2,6 +2,7 @@ package service
 
 import (
 	"douyin/repository"
+	"douyin/util"
 	"sync"
 	"time"
 )
@@ -18,11 +19,46 @@ func NewComment(comment *repository.Comment) (int64, error) {
 	if err != nil {
 		return -1, err
 	}
+	go func(videoId int64) {
+		videoDao := repository.GetVideoDaoInstance()
+		video, er := videoDao.QueryById(videoId)
+		if er != nil {
+			util.Logger.Error(er.Error())
+			return
+		}
+		video.CommentCount++
+		er = videoDao.Update(video)
+		if err != nil {
+			util.Logger.Error(er.Error())
+		}
+	}(comment.VideoId)
 	return id, nil
 }
 
 func DeleteComment(commentId int64) error {
-	return repository.GetCommentDaoInstance().Delete(commentId)
+	commentDao := repository.GetCommentDaoInstance()
+	comment, err := commentDao.QueryById(commentId)
+	if err != nil {
+		return err
+	}
+	err = commentDao.Delete(commentId)
+	if err != nil {
+		return err
+	}
+	go func(videoId int64) {
+		videoDao := repository.GetVideoDaoInstance()
+		video, er := videoDao.QueryById(videoId)
+		if er != nil {
+			util.Logger.Error(er.Error())
+			return
+		}
+		video.CommentCount++
+		er = videoDao.Update(video)
+		if err != nil {
+			util.Logger.Error(er.Error())
+		}
+	}(comment.VideoId)
+	return nil
 }
 
 func GetCommentListByVideo(videoId int64, userId int64) ([]Comment, error) {

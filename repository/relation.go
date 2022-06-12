@@ -57,7 +57,7 @@ func (*RelationDao) GetFollowerList(followId int64) ([]User, error) {
 }
 
 func (*RelationDao) DeleteByFollowAndFollower(followId int64, followerId int64) error {
-	return db.Exec("DELETE FROM relation WHERE follow_id = " + string(followId) + " follower_id = " + string(followerId)).Error
+	return db.Exec("DELETE FROM relation WHERE follow_id = " + strconv.FormatInt(followId, 10) + " and follower_id = " + strconv.FormatInt(followerId, 10)).Error
 }
 
 func (*RelationDao) QueryByFollowIdAndFollowerId(followId int64, followerId int64) (*Relation, error) {

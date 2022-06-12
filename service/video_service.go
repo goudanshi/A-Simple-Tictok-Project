@@ -1,10 +1,14 @@
 package service
 
 import (
+	"bytes"
 	"douyin/repository"
 	"douyin/util"
+	"fmt"
+	ffmpeg "github.com/u2takey/ffmpeg-go"
 	"io"
 	"mime/multipart"
+	"os"
 	"strconv"
 	"sync"
 	"time"
@@ -16,11 +20,11 @@ type VideoUser struct {
 	User       User `json:"author"`
 }
 
-func GetVideoFeed(name string) (io.Reader, int64, error) {
+func GetVideoFeed(name string) (io.Reader, int64, time.Time, error) {
 	return util.GetObjectWithSize(name)
 }
 
-func GetVideoCover(name string) (io.Reader, int64, error) {
+func GetVideoCover(name string) (io.Reader, int64, time.Time, error) {
 	return util.GetObjectWithSize(name)
 }
 
@@ -34,12 +38,23 @@ func PublishVideo(data *multipart.FileHeader, title string, userId int64) (int64
 	if err != nil {
 		return -1, err
 	}
+	reader := bytes.NewBuffer(nil)
+	err = ffmpeg.Input("http://localhost:8100"+util.GET_VIDEO_PATH+"?name="+fileName).
+		Filter("select", ffmpeg.Args{fmt.Sprintf("gte(n,%d)", 5)}).
+		Output("pipe:", ffmpeg.KwArgs{"vframes": 1, "format": "image2", "vcodec": "mjpeg"}).
+		WithOutput(reader, os.Stdout).
+		Run()
+	if err != nil {
+		return -1, err
+	}
+	coverName := fileName + "-cover.jpeg"
+	util.PutJpg(coverName, reader, int64(reader.Len()))
 
 	return repository.GetVideoDaoInstance().Add(&repository.Video{
 		PublisherId:   userId,
 		Title:         title,
-		VideoUrl:      util.LOCAL_HOST + util.GET_VIDEO_PATH + "?name=" + fileName,
-		CoverUrl:      "",
+		VideoUrl:      util.OSS_SHARE_HOST + fileName,
+		CoverUrl:      util.OSS_SHARE_HOST + coverName,
 		FavoriteCount: 0,
 		CommentCount:  0,
 		CreateDate:    time.Now(),

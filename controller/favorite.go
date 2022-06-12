@@ -5,6 +5,7 @@ import (
 	"douyin/util"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 )
 
 type favoriteActionRequest struct {
@@ -13,19 +14,19 @@ type favoriteActionRequest struct {
 }
 
 func FavoriteAction(c *gin.Context) {
-	var request favoriteActionRequest
-	c.ShouldBind(&request)
+	videoId, _ := strconv.ParseInt(c.Query("video_id"), 10, 64)
+	actionType, _ := strconv.ParseInt(c.Query("action_type"), 10, 32)
 	userId := service.GetUserId(c)
-	if request.ActionType == util.EXEC_FAVORITE {
-		_, err := service.NewFavorite(userId, request.VideoId)
+	if actionType == util.EXEC_FAVORITE {
+		_, err := service.NewFavorite(userId, videoId)
 		if err != nil {
 			buildError(c, err.Error())
 			return
 		}
 		buildSuccess(c)
 		return
-	} else if request.ActionType == util.CANCEL_FAVORITE {
-		err := service.CancelFavorite(userId, request.VideoId)
+	} else if actionType == util.CANCEL_FAVORITE {
+		err := service.CancelFavorite(userId, videoId)
 		if err != nil {
 			buildError(c, err.Error())
 			return
@@ -39,7 +40,11 @@ func FavoriteAction(c *gin.Context) {
 }
 
 func FavoriteList(c *gin.Context) {
-	userId := service.GetUserId(c)
+	userId, err := strconv.ParseInt(c.Query("user_id"), 10, 64)
+	if err != nil {
+		buildError(c, err.Error())
+		return
+	}
 
 	data, err := service.QueryFavoriteVideo(userId)
 	if err != nil {

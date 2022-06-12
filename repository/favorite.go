@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"fmt"
 	"strconv"
 	"time"
 )
@@ -26,7 +27,7 @@ func (*FavoriteDao) Add(favorite *Favorite) (int64, error) {
 
 func (*FavoriteDao) QueryVideoByUserAndEarlyDate(userId int64, date time.Time) ([]int64, error) {
 	var ids []int64
-	err := db.Table("favorite").Select("video_id").Where("create_date >= ? and user_id = ?", date, userId).Find(&ids).Error
+	err := db.Table("favorite").Select("video_id").Where("user_id = ?", userId).Find(&ids).Error
 	if err != nil {
 		return nil, err
 	}
@@ -34,7 +35,9 @@ func (*FavoriteDao) QueryVideoByUserAndEarlyDate(userId int64, date time.Time) (
 }
 
 func (*FavoriteDao) DeleteByUserVideo(userId int64, videoId int64) error {
-	return db.Exec("DELETE FROM favorite WHERE userId = " + string(userId) + " AND videoId = " + string(videoId)).Error
+	sql := "DELETE FROM favorite WHERE user_id = " + strconv.FormatInt(userId, 10) + " AND video_id = " + strconv.FormatInt(videoId, 10)
+	fmt.Println(sql)
+	return db.Exec(sql).Error
 }
 
 func (*FavoriteDao) QueryFavoriteVideo(userId int64) ([]VideoUser, error) {

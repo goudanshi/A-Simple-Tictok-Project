@@ -6,8 +6,10 @@ const FEED_LIMIT = 30
 
 const USER_ID = "user_id"
 
-const LOCAL_HOST = "http://127.0.0.1:8100"
+const LOCAL_HOST = "http://192.168.31.20:8100"
+const OSS_SHARE_HOST = "http://192.168.31.20:9000/douyinbalute/"
 const GET_VIDEO_PATH = "/douyin/feed/get"
+const GET_COVER_PATH = "/douyin/feed/get/cover"
 
 // favorite操作action type
 const EXEC_FAVORITE = 1
