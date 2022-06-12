@@ -2,7 +2,9 @@ package controller
 
 import (
 	"douyin/service"
+	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt/v4"
 	"net/http"
 	"time"
 )
@@ -14,10 +16,21 @@ type PublishListResponse struct {
 }
 
 func Publish(c *gin.Context) {
-	c.JSON(http.StatusOK, service.GetUserId(c))
+
+	tokenString := c.PostForm("token")
+	token, _ := service.GetAuthInstance().ParseTokenString(tokenString)
+	var userId int64
+	for key, value := range token.Claims.(jwt.MapClaims) {
+		if key == "identity" {
+			userId = int64(int(value.(float64)))
+		}
+	}
+	fmt.Println(userId)
+
+	//c.JSON(http.StatusOK, service.GetUserId(c))
 	file, _ := c.FormFile("data")
 	title := c.PostForm("title")
-	_, err := service.PublishVideo(file, title, service.GetUserId(c))
+	_, err := service.PublishVideo(file, title, userId)
 	if err != nil {
 		buildError(c, err.Error())
 		return

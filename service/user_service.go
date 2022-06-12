@@ -96,7 +96,8 @@ func AuthMiddlewareInit() error {
 		Authenticator: func(c *gin.Context) (interface{}, error) {
 			//var request repository.UserRequest
 			//c.ShouldBind(&request)
-			//res, err := Login(request.Username, request.Password)
+			//res, err := Login(reques
+			//t.Username, request.Password)
 			username := c.Query("username")
 			password := c.Query("password")
 			res, err := Login(username, password)

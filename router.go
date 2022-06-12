@@ -8,7 +8,7 @@ import (
 func initRouter(r *gin.Engine) {
 	douyinGroup := r.Group("/douyin")
 	{
-		douyinGroup.GET("/feed/", controller.Auth, controller.GetFeedList)
+		douyinGroup.GET("/feed/", controller.GetFeedList)
 		douyinGroup.GET("/feed/get", controller.GetFeed)
 		douyinGroup.GET("/feed/get/cover", controller.GetCover)
 
@@ -19,10 +19,10 @@ func initRouter(r *gin.Engine) {
 			userGroup.GET("/", controller.Auth, controller.UserInfo)
 		}
 
-		publishGroup := douyinGroup.Group("/publish", controller.Auth)
+		publishGroup := douyinGroup.Group("/publish")
 		{
 			publishGroup.POST("/action/", controller.Publish)
-			publishGroup.GET("/list/", controller.PublishList)
+			publishGroup.GET("/list/", controller.Auth, controller.PublishList)
 		}
 
 		favoriteGroup := douyinGroup.Group("/favorite", controller.Auth)
