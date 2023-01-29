@@ -31,7 +31,7 @@ const NEW_RELATION = 1
 const DELETE_RELATION = 2
 
 // minIO相关参数
-const MINIO_ACCESS_KEY = "admin"
-const MINIO_SECRET_ACCESS_KEY = "123456789"
+const MINIO_ACCESS_KEY = "minioadmin"
+const MINIO_SECRET_ACCESS_KEY = "minioadmin"
 const MINIO_END_POINT = "127.0.0.1:9000/"
 const MINIO_BUCKET = "douyinbalute"
