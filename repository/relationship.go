@@ -65,7 +65,7 @@ func (*RelationshipDao) DeleteRelationship(relationship *Relationship) error {
 	// 开事务处理
 	err := db.Transaction(func(tx *gorm.DB) error {
 		// 1. 修改关系表中的记录
-		if err := tx.Delete(relationship).Error; err != nil {
+		if err := tx.Where("user_id = ? and subscribe_id = ?", relationship.UserId, relationship.SubscribeId).Delete(relationship).Error; err != nil {
 			return err
 		}
 		// 2. 为relationship.UserId用户减去一个舔狗
