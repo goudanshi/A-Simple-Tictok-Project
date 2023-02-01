@@ -2,6 +2,8 @@ package handler
 
 import (
 	"github.com/A-Simple-Tictok-Project/douyin/service"
+	"github.com/gin-gonic/gin"
+	"net/http"
 	"strconv"
 )
 
@@ -11,7 +13,7 @@ type PageCommentQueryGetData struct {
 	CommentList []map[string]interface{} `json:"comment_list,omitempty"`
 }
 
-func CommentQueryGet(videoIdStr string) *PageCommentQueryGetData {
+func commentQueryGet(videoIdStr string) *PageCommentQueryGetData {
 	videoId, _ := strconv.ParseInt(videoIdStr, 10, 64)
 	// 获取service层的数据
 	commentInfo, err := service.CommentQueryGet(videoId)
@@ -41,4 +43,10 @@ func CommentQueryGet(videoIdStr string) *PageCommentQueryGetData {
 		StatusMsg:   err.ErrMsg,
 		CommentList: commentList,
 	}
+}
+
+func CommentQuery(c *gin.Context) {
+	videoIdStr := c.Query("video_id")
+	data := commentQueryGet(videoIdStr)
+	c.JSON(http.StatusOK, data)
 }

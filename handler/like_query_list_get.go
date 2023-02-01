@@ -29,8 +29,8 @@ func likeQueryListGet(userIdStr string) *PageLikeQueryListData {
 			"author": map[string]interface{}{
 				"id":             videoInfo.AuthorMap[video.UserId].ID,
 				"name":           videoInfo.AuthorMap[video.UserId].Username,
-				"follow_count":   videoInfo.AuthorMap[video.UserId].UserCount, // 女神
-				"follower_count": videoInfo.AuthorMap[video.UserId].SubscribeCount,      // 舔狗
+				"follow_count":   videoInfo.AuthorMap[video.UserId].UserCount,      // 女神
+				"follower_count": videoInfo.AuthorMap[video.UserId].SubscribeCount, // 舔狗
 				"is_follow":      false,
 			},
 			"play_url":       video.PlayURL,

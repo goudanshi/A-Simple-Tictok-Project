@@ -14,5 +14,7 @@ func Init() *gin.Engine {
 	registerVideoRoute(v1)
 	// 注册点赞相关路由
 	registerFavoriteRoute(v1)
+	// 注册评论模块相关路由
+	registerCommentRoute(v1)
 	return r
 }
