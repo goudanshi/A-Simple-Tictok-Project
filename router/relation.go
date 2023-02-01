@@ -10,7 +10,7 @@ var registerRelationRoute = func(r *gin.RouterGroup) {
 	relationGroup := r.Group("/relation")
 	{
 		relationGroup.POST("/action", middleware.JWTToken(), handler.RelationshipCreateOrDelete)
-		relationGroup.GET("/follow/list")
+		relationGroup.GET("/follow/list", handler.RelationshipQueryNList)
 		relationGroup.GET("/follower/list")
 	}
 }

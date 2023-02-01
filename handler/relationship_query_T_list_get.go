@@ -5,6 +5,8 @@ import (
 	"strconv"
 )
 
+// 获取舔狗列表
+
 type PageRelationshipQueryTListData struct {
 	StatusCode int64                    `json:"status_code"`
 	StatusMsg  string                   `json:"status_msg"`

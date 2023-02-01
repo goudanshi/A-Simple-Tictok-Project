@@ -2,8 +2,12 @@ package handler
 
 import (
 	"github.com/A-Simple-Tictok-Project/douyin/service"
+	"github.com/gin-gonic/gin"
+	"net/http"
 	"strconv"
 )
+
+// 获取女神列表
 
 type PageRelationshipQueryNListData struct {
 	StatusCode int64                    `json:"status_code"`
@@ -11,7 +15,7 @@ type PageRelationshipQueryNListData struct {
 	UserList   []map[string]interface{} `json:"user_list,omitempty"`
 }
 
-func RelationshipQueryNList(subscribeIdStr string) *PageRelationshipQueryNListData {
+func relationshipQueryNListGet(subscribeIdStr string) *PageRelationshipQueryNListData {
 	subscribeId, _ := strconv.ParseInt(subscribeIdStr, 10, 64)
 	// 获取service层数据
 	relationshipInfo, err := service.RelationshipQueryNListGet(subscribeId)
@@ -36,4 +40,10 @@ func RelationshipQueryNList(subscribeIdStr string) *PageRelationshipQueryNListDa
 		StatusMsg:  err.ErrMsg,
 		UserList:   userList,
 	}
+}
+
+func RelationshipQueryNList(c *gin.Context) {
+	userIdStr := c.Query("user_id")
+	data := relationshipQueryNListGet(userIdStr)
+	c.JSON(http.StatusOK, data)
 }

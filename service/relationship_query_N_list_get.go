@@ -37,7 +37,7 @@ func (f *RelationshipQueryNListGetFlow) checkParam() errno.ErrNo {
 	return errno.Success
 }
 func (f *RelationshipQueryNListGetFlow) queryUser() errno.ErrNo {
-	rs, err := repository.NewRelationshipDaoInstance().QueryRelationshipByUserId(f.SubscribeId)
+	rs, err := repository.NewRelationshipDaoInstance().QueryRelationshipBySubscribeId(f.SubscribeId)
 	if err != nil {
 		return errno.ConvertErr(err)
 	}
