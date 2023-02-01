@@ -35,7 +35,7 @@
 |   描述    |           地址            | 请求方法 | 是否完成 |
 | :-------: | :-----------------------: | :------: | :------: |
 | 点赞/点踩 | `/douyin/favorite/action` |   POST   |    是    |
-| 喜欢列表  |  `/douyin/favorite/list`  |   GET    |    否    |
+| 喜欢列表  |  `/douyin/favorite/list`  |   GET    |    是    |
 
 #### 评论模块
 

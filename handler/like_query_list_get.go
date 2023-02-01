@@ -1,8 +1,8 @@
 package handler
 
 import (
-	"github.com/gin-gonic/gin"
 	"github.com/A-Simple-Tictok-Project/douyin/service"
+	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
 )
@@ -16,7 +16,7 @@ type PageLikeQueryListData struct {
 func likeQueryListGet(userIdStr string) *PageLikeQueryListData {
 	userId, _ := strconv.ParseInt(userIdStr, 10, 64)
 	videoInfo, err := service.LikeQueryList(userId)
-	if err.ErrCode != 0 {
+	if err.ErrCode != 0 || videoInfo == nil {
 		return &PageLikeQueryListData{
 			StatusCode: err.ErrCode,
 			StatusMsg:  err.ErrMsg,
@@ -49,7 +49,7 @@ func likeQueryListGet(userIdStr string) *PageLikeQueryListData {
 }
 
 func LikeQueryList(c *gin.Context) {
-	userId := c.Query("user_id")
-	data := likeQueryListGet(userId)
+	userIdStr := c.Query("user_id")
+	data := likeQueryListGet(userIdStr)
 	c.JSON(http.StatusOK, data)
 }
