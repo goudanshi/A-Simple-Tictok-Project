@@ -10,7 +10,8 @@ import (
 type PageCommentQueryGetData struct {
 	StatusCode  int64                    `json:"status_code"`
 	StatusMsg   string                   `json:"status_msg"`
-	CommentList []map[string]interface{} `json:"comment_list,omitempty"`
+	CommentList []map[string]interface{} `json:"comment_list"`
+	//CommentList []map[string]interface{} `json:"comment_list,omitempty"`
 }
 
 func commentQueryGet(videoIdStr string) *PageCommentQueryGetData {
