@@ -1,8 +1,8 @@
 package handler
 
 import (
-	"github.com/gin-gonic/gin"
 	"github.com/A-Simple-Tictok-Project/douyin/service"
+	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
 )
@@ -43,9 +43,7 @@ func userQueryGet(userIdStr string) *PageUserQueryData {
 }
 
 func Userinfo(c *gin.Context) {
-	//userIdStr := c.Query("user_id") // 因为这个接口是获取当前登录用户的信息，所以个人觉得不用前端传过来的userId数据
-	tempUserId, _ := c.Get("userId") // 有点粗糙
-	userIdStr := tempUserId.(string)
+	userIdStr := c.Query("user_id")
 	data := userQueryGet(userIdStr)
 	c.JSON(http.StatusOK, data)
 }
