@@ -43,7 +43,7 @@ func (f *RelationshipQueryTListGetFlow) queryUser() errno.ErrNo {
 	}
 	subscribeUserIds := make([]int64, 0)
 	for _, r := range rs {
-		subscribeUserIds = append(subscribeUserIds, r.ID)
+		subscribeUserIds = append(subscribeUserIds, r.SubscribeId)
 	}
 	subscribeUsers, err := repository.NewUserDaoInstance().MQueryUserById(subscribeUserIds)
 	if err != nil {

@@ -41,16 +41,16 @@
 
 |   描述    |           地址           | 请求方法 | 是否完成 |
 | :-------: | :----------------------: | :------: | :------: |
-| 评论/删除 | `/douyin/comment/action` |   POST   |    否    |
-| 评论列表  |  `/douyin/comment/list`  |   GET    |    否    |
+| 评论/删除 | `/douyin/comment/action` |   POST   |    是    |
+| 评论列表  |  `/douyin/comment/list`  |   GET    |    是    |
 
 #### 社交模块
 
 |   描述    |              地址              | 请求方法 | 是否完成 |
 | :-------: | :----------------------------: | :------: | :------: |
-| 关注/取关 |   `/douyin/relation/action`    |   POST   |    否    |
-| 关注列表  | `/douyin/relation/follow/list` |   GET    |    否    |
-| 粉丝列表  | `/douyin/relat/follower/list`  |   GET    |    否    |
+| 关注/取关 |   `/douyin/relation/action`    |   POST   |    是    |
+| 关注列表  | `/douyin/relation/follow/list` |   GET    |    是    |
+| 粉丝列表  | `/douyin/relat/follower/list`  |   GET    |    是    |
 
 ### 项目运行步骤
 
