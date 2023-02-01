@@ -1,8 +1,8 @@
 package repository
 
 import (
-	"github.com/jason/douyin/constants"
-	. "github.com/jason/douyin/utils"
+	"github.com/A-Simple-Tictok-Project/douyin/constants"
+	. "github.com/A-Simple-Tictok-Project/douyin/utils"
 	"gorm.io/gorm"
 	"sync"
 	"time"

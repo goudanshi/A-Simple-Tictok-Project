@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"github.com/jason/douyin/service"
+	"github.com/A-Simple-Tictok-Project/douyin/service"
 	"strconv"
 )
 

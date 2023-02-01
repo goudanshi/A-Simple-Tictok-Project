@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/jason/douyin/repository"
-	"github.com/jason/douyin/router"
-	"github.com/jason/douyin/utils"
+	"github.com/A-Simple-Tictok-Project/douyin/repository"
+	"github.com/A-Simple-Tictok-Project/douyin/router"
+	"github.com/A-Simple-Tictok-Project/douyin/utils"
 	"os"
 )
 

@@ -2,8 +2,8 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/jason/douyin/handler"
-	"github.com/jason/douyin/middleware"
+	"github.com/A-Simple-Tictok-Project/douyin/handler"
+	"github.com/A-Simple-Tictok-Project/douyin/middleware"
 )
 
 var registerVideoRoute = func(r *gin.RouterGroup) {

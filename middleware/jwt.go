@@ -3,8 +3,8 @@ package middleware
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/jason/douyin/constants"
-	. "github.com/jason/douyin/utils"
+	"github.com/A-Simple-Tictok-Project/douyin/constants"
+	. "github.com/A-Simple-Tictok-Project/douyin/utils"
 	"net/http"
 	"strconv"
 )

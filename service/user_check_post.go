@@ -3,8 +3,8 @@ package service
 import (
 	"crypto/md5"
 	"fmt"
-	"github.com/jason/douyin/errno"
-	"github.com/jason/douyin/repository"
+	"github.com/A-Simple-Tictok-Project/douyin/errno"
+	"github.com/A-Simple-Tictok-Project/douyin/repository"
 	"io"
 )
 

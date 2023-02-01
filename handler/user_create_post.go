@@ -3,10 +3,10 @@ package handler
 import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
-	"github.com/jason/douyin/constants"
-	"github.com/jason/douyin/errno"
-	"github.com/jason/douyin/service"
-	"github.com/jason/douyin/utils"
+	"github.com/A-Simple-Tictok-Project/douyin/constants"
+	"github.com/A-Simple-Tictok-Project/douyin/errno"
+	"github.com/A-Simple-Tictok-Project/douyin/service"
+	"github.com/A-Simple-Tictok-Project/douyin/utils"
 	"net/http"
 	"time"
 )

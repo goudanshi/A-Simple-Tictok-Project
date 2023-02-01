@@ -1,9 +1,9 @@
 package service
 
 import (
-	"github.com/jason/douyin/constants"
-	"github.com/jason/douyin/errno"
-	"github.com/jason/douyin/repository"
+	"github.com/A-Simple-Tictok-Project/douyin/constants"
+	"github.com/A-Simple-Tictok-Project/douyin/errno"
+	"github.com/A-Simple-Tictok-Project/douyin/repository"
 )
 
 type CommentCreateOrDeletePostFlow struct {

@@ -1,4 +1,4 @@
-module github.com/jason/douyin
+module github.com/A-Simple-Tictok-Project/douyin
 
 go 1.18
 

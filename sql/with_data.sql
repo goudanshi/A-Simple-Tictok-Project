@@ -101,7 +101,7 @@ CREATE TABLE `user`  (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, 'jason', 'acc0aa297d5bbd540006807c57c0affb', 0, 0, '2023-01-31 11:59:59.440', '2023-01-31 11:59:59.440', NULL);
+INSERT INTO `user` VALUES (1, 'A-Simple-Tictok-Project', 'acc0aa297d5bbd540006807c57c0affb', 0, 0, '2023-01-31 11:59:59.440', '2023-01-31 11:59:59.440', NULL);
 INSERT INTO `user` VALUES (2, 'tank', '9fe720581dcde5eab041673b9883da9f', 0, 0, '2023-01-31 12:00:31.626', '2023-01-31 12:00:31.626', NULL);
 INSERT INTO `user` VALUES (3, 'alex', 'b75bd008d5fecb1f50cf026532e8ae67', 0, 0, '2023-01-31 12:00:51.289', '2023-01-31 12:00:51.289', NULL);
 INSERT INTO `user` VALUES (4, 'egon', 'd2e3da2e9dd5f6d7ab0d90521ea910d2', 0, 0, '2023-01-31 12:01:02.862', '2023-01-31 12:01:02.862', NULL);
@@ -130,11 +130,11 @@ CREATE TABLE `video`  (
 -- ----------------------------
 -- Records of video
 -- ----------------------------
-INSERT INTO `video` VALUES (1, '??jason?????', 'http://127.0.0.1:8080/video/video.mp4', 'http://127.0.0.1:8080/video/cover.jpg', 1, 2, 0, '2023-01-31 21:09:48.044', '2023-01-31 21:09:48.044', NULL);
-INSERT INTO `video` VALUES (2, '??jason?????', 'http://127.0.0.1:8080/video/video.mp4', 'http://127.0.0.1:8080/video/cover.jpg', 1, 1, 0, '2023-01-31 21:10:01.906', '2023-01-31 21:10:01.906', NULL);
-INSERT INTO `video` VALUES (3, '??jason?????', 'http://127.0.0.1:8080/video/video.mp4', 'http://127.0.0.1:8080/video/cover.jpg', 1, 1, 0, '2023-01-31 21:10:09.454', '2023-01-31 21:10:09.454', NULL);
-INSERT INTO `video` VALUES (4, '??jason?????', 'http://127.0.0.1:8080/video/video.mp4', 'http://127.0.0.1:8080/video/cover.jpg', 1, 1, 0, '2023-01-31 21:12:50.675', '2023-01-31 21:12:50.675', NULL);
-INSERT INTO `video` VALUES (5, '??jason?????', 'http://127.0.0.1:8080/video/video.mp4', 'http://127.0.0.1:8080/video/cover.jpg', 1, 0, 0, '2023-01-31 21:12:58.220', '2023-01-31 21:12:58.220', NULL);
-INSERT INTO `video` VALUES (6, '??jason?????', 'http://127.0.0.1:8080/video/video.mp4', 'http://127.0.0.1:8080/video/cover.jpg', 1, 0, 0, '2023-01-31 21:13:06.677', '2023-01-31 21:13:06.677', NULL);
+INSERT INTO `video` VALUES (1, '??A-Simple-Tictok-Project?????', 'http://127.0.0.1:8080/video/video.mp4', 'http://127.0.0.1:8080/video/cover.jpg', 1, 2, 0, '2023-01-31 21:09:48.044', '2023-01-31 21:09:48.044', NULL);
+INSERT INTO `video` VALUES (2, '??A-Simple-Tictok-Project?????', 'http://127.0.0.1:8080/video/video.mp4', 'http://127.0.0.1:8080/video/cover.jpg', 1, 1, 0, '2023-01-31 21:10:01.906', '2023-01-31 21:10:01.906', NULL);
+INSERT INTO `video` VALUES (3, '??A-Simple-Tictok-Project?????', 'http://127.0.0.1:8080/video/video.mp4', 'http://127.0.0.1:8080/video/cover.jpg', 1, 1, 0, '2023-01-31 21:10:09.454', '2023-01-31 21:10:09.454', NULL);
+INSERT INTO `video` VALUES (4, '??A-Simple-Tictok-Project?????', 'http://127.0.0.1:8080/video/video.mp4', 'http://127.0.0.1:8080/video/cover.jpg', 1, 1, 0, '2023-01-31 21:12:50.675', '2023-01-31 21:12:50.675', NULL);
+INSERT INTO `video` VALUES (5, '??A-Simple-Tictok-Project?????', 'http://127.0.0.1:8080/video/video.mp4', 'http://127.0.0.1:8080/video/cover.jpg', 1, 0, 0, '2023-01-31 21:12:58.220', '2023-01-31 21:12:58.220', NULL);
+INSERT INTO `video` VALUES (6, '??A-Simple-Tictok-Project?????', 'http://127.0.0.1:8080/video/video.mp4', 'http://127.0.0.1:8080/video/cover.jpg', 1, 0, 0, '2023-01-31 21:13:06.677', '2023-01-31 21:13:06.677', NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;

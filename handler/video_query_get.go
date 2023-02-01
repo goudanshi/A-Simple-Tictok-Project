@@ -2,7 +2,7 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/jason/douyin/service"
+	"github.com/A-Simple-Tictok-Project/douyin/service"
 	"net/http"
 	"strconv"
 )
