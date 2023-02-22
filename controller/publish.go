@@ -4,7 +4,6 @@ import (
 	"douyin/service"
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/golang-jwt/jwt/v4"
 	"net/http"
 	"strconv"
 )
@@ -57,6 +56,7 @@ func PublishList(c *gin.Context) {
 				StatusMsg:  "success",
 			},
 		})
+		return
 	}
 	c.JSON(http.StatusOK, PublishListResponse{
 		BaseResponse: BaseResponse{
